@@ -38,4 +38,47 @@ Adding 999 SNPs that are additive as well, also, kills GCAE:
 
 Note that PLINK will also fail to detect each SNP having an effect.
 
+# Gradient
+
+![](richel_issue_144_p0_0.png)
+
+> 0 noise, p0
+
+![](richel_issue_144_p0_1.png)
+
+> 0 noise, p1
+
+![](richel_issue_144_p0_2.png)
+
+> 0 noise, p2
+
+![](richel_issue_144_p1_0.png)
+
+> 1 noise, p0
+
+![](richel_issue_144_p1_1.png)
+
+> 1 noise, p1
+
+![](richel_issue_144_p1_2.png)
+
+> 1 noise, p2
+
+
+![](richel_issue_144_p2_0.png)
+
+> 2 noise, p0
+
+![](richel_issue_144_p2_1.png)
+
+> 2 noise, p1
+
+![](richel_issue_144_p2_2.png)
+
+> 2 noise, p2
+
+# Real data
+
+![](richel_issue_136.png)
+
 
