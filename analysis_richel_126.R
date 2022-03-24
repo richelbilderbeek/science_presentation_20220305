@@ -66,7 +66,6 @@ p <- ggplot2::ggplot(t, ggplot2::aes(x = true_phenotype, y = predicted_phenotype
   bbbq::get_bbbq_theme() +
   ggplot2::scale_x_continuous(limits = c(0 * pi, 4 * pi)) +
   ggplot2::scale_y_continuous(limits = c(0 * pi, 5 * pi)) +
-  ggplot2::theme(text = ggplot2::element_text(size = 30)) +
   ggplot2::geom_abline(slope = 1, intercept = 0, lty = "dashed")
 p
 ggplot2::ggsave(
