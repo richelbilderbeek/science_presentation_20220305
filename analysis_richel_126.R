@@ -39,23 +39,23 @@ knitr::kable(qassoc_table)
 
 
 png_filename <- "~/analysis_richel_126.png"
-csv_filename_for_mse <- "~/analysis_richel_126_mse.csv"
-csv_filename_for_fits <- "~/analysis_richel_126_fits.csv"
-csv_filename_for_r_squareds <- "~/analysis_richel_126_r_squareds.csv"
-
+csv_filename_for_nmse <- "~/analysis_richel_126_nmse.csv"
 
 p <- gcaer::analyse_qt_prediction(
   datadir = datadir,
   trainedmodeldir = trainedmodeldir,
   png_filename = png_filename,
-  csv_filename_for_mse = csv_filename_for_mse,
-  csv_filename_for_fits = csv_filename_for_fits,
-  csv_filename_for_r_squareds = csv_filename_for_r_squareds
+  csv_filename_for_nmse = csv_filename_for_nmse
 )
 p <- p + bbbq::get_bbbq_theme()
 p
 ggplot2::ggsave(filename = png_filename, width = 7, height = 7)
 
+#######################
+#
+# Expected plot
+#
+#######################
 t <- tibble::tibble(
   true_phenotype = rep(seq(pi, 3 * pi, by = pi), times = 10),
   predicted_phenotype = rep(seq(pi, 3 * pi, by = pi), times = 10)
@@ -70,5 +70,32 @@ p <- ggplot2::ggplot(t, ggplot2::aes(x = true_phenotype, y = predicted_phenotype
 p
 ggplot2::ggsave(
   filename = "~/analysis_richel_126_expected.png",
+  width = 7, height = 7
+)
+
+#######################
+#
+# Training
+#
+#######################
+t_f <- tibble::tibble(
+  t = seq(0, 1000),
+  score_type = "dimensionality reduction",
+  score = 1 - exp(-0.01 * seq(0, 1000))
+)
+t_p <- t_f
+t_p$score_type = "trait prediction"
+t_p$score <- 1 - (2 * exp(-0.003 * seq(0, 1000)))
+t_p$score[t_p$score < 0] <- 0
+t <- dplyr::bind_rows(t_f, t_p)
+
+p <- ggplot2::ggplot(t, ggplot2::aes(x = t, y = score, color = score_type)) +
+  ggplot2::geom_point() +
+  bbbq::get_bbbq_theme() +
+  ggplot2::theme(legend.position = "bottom") +
+  ggplot2::guides(color = ggplot2::guide_legend(nrow = 2, byrow = TRUE))
+p
+ggplot2::ggsave(
+  filename = "~/training_piggyback.png",
   width = 7, height = 7
 )
